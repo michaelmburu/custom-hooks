@@ -4,7 +4,7 @@ import { UserInfo } from './UserInfo';
 import { ProductInfo } from './ProductInfo';
 
 
-// UseResource custom hook that takes a resource and appends to the resourceURL
+// Use DataResource custom hook that takes a resource and appends to the resourceURL
 function App() {
   return (
     <>

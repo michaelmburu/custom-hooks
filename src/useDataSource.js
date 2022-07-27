@@ -7,7 +7,7 @@ export const useDataSource = getResourceFunction => {
 
     useEffect(() => {
         (async () =>{
-            const result = await getResourceFunction()
+            const result = await getResourceFunction();
             setResource(result)
         })();
     }, [getResourceFunction])

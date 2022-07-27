@@ -1,9 +1,15 @@
-import { useResource } from "./useResource";
+import axios from "axios";
+import { useDataSource } from "./useDataSource";
 
-// useResource custom hook that takes in a URL to fetch data
+
+// useDataResource custom hook that takes in a URL to fetch data
 export const UserInfo = ({userId}) => {
     
-    const user = useResource(`/users/${userId}`);
+   //const user = useResource(`/users/${userId}`);
+   const user  = useDataSource(async () => {
+    const response = await axios.get(`/users/${userId}`);
+    return response.data;
+   })
     const {name, age, hairColor, hobbies} = user || {};
 
     return user ? (
