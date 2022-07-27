@@ -1,15 +1,27 @@
 import axios from "axios";
 import { useDataSource } from "./useDataSource";
+import { useResource } from "./useResource";
 
 
-// useDataResource custom hook that takes in a URL to fetch data
+// improving the useDataResource custom hook that takes in a URL to fetch data
 export const UserInfo = ({userId}) => {
     
-   //const user = useResource(`/users/${userId}`);
-   const user  = useDataSource(async () => {
-    const response = await axios.get(`/users/${userId}`);
-    return response.data;
-   })
+    //Improve useDataResource custom hook to use any data source
+    const serverResource = resourceUrl => async () => {
+        const response = await axios.get(resourceUrl);
+        return response.data;
+    }
+
+    const localStorageResource = key => () => {
+        return localStorage.getItem(key);
+    }
+    
+    //use resource example
+    const user = useResource(`/users/${userId}`);
+    // use dataSource examples
+    const user2  = useDataSource(serverResource(`/users/${userId}`))
+    const message  = useDataSource(localStorageResource('message'));
+
     const {name, age, hairColor, hobbies} = user || {};
 
     return user ? (
